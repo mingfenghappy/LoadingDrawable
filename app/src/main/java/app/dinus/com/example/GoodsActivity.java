@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
-
 import app.dinus.com.loadingdrawable.LoadingDrawable;
-import app.dinus.com.loadingdrawable.render.animal.GhostsEyeLoadingRenderer;
 import app.dinus.com.loadingdrawable.render.goods.BalloonLoadingRenderer;
 import app.dinus.com.loadingdrawable.render.goods.WaterBottleLoadingRenderer;
 
@@ -23,8 +21,7 @@ public class GoodsActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods);
 
@@ -38,15 +35,13 @@ public class GoodsActivity extends AppCompatActivity {
         mIvWaterBottle.setImageDrawable(mWaterBottleDrawable);
     }
 
-    @Override
-    protected void onStart() {
+    @Override protected void onStart() {
         super.onStart();
         mBalloonDrawable.start();
         mWaterBottleDrawable.start();
     }
 
-    @Override
-    protected void onStop() {
+    @Override protected void onStop() {
         mBalloonDrawable.stop();
         mWaterBottleDrawable.stop();
         super.onStop();

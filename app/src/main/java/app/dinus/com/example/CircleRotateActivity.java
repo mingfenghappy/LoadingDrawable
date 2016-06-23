@@ -28,8 +28,7 @@ public class CircleRotateActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circle_rotate);
 
@@ -49,8 +48,7 @@ public class CircleRotateActivity extends AppCompatActivity {
         mIvMaterial.setImageDrawable(mMaterialDrawable);
     }
 
-    @Override
-    protected void onStart() {
+    @Override protected void onStart() {
         super.onStart();
         mGearDrawable.start();
         mWhorlDrawable.start();
@@ -58,8 +56,7 @@ public class CircleRotateActivity extends AppCompatActivity {
         mMaterialDrawable.start();
     }
 
-    @Override
-    protected void onStop() {
+    @Override protected void onStop() {
         mGearDrawable.stop();
         mWhorlDrawable.stop();
         mLevelDrawable.stop();

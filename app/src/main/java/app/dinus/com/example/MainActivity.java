@@ -6,15 +6,14 @@ import android.view.View;
 import android.widget.Button;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button mBtnGoods;
     private Button mBtnAnimal;
     private Button mBtnScenery;
     private Button mBtnCircleJump;
     private Button mBtnCircleRotate;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -31,9 +30,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBtnCircleRotate.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
+    @Override public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.goods:
                 GoodsActivity.startActivity(this);
                 break;

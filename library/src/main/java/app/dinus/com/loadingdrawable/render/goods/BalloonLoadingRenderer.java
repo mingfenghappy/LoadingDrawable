@@ -1,4 +1,5 @@
 package app.dinus.com.loadingdrawable.render.goods;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -82,7 +83,8 @@ public class BalloonLoadingRenderer extends LoadingRenderer {
     }
 
     private void init(Context context) {
-        final DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        final DisplayMetrics metrics = context.getResources()
+                .getDisplayMetrics();
         final float screenDensity = metrics.density;
 
         mTextSize = DEFAULT_TEXT_SIZE * screenDensity;
@@ -116,8 +118,7 @@ public class BalloonLoadingRenderer extends LoadingRenderer {
         mPaint.setStrokeWidth(getStrokeWidth());
     }
 
-    @Override
-    public void draw(Canvas canvas, Rect bounds) {
+    @Override public void draw(Canvas canvas, Rect bounds) {
         int saveCount = canvas.save();
 
         RectF arcBounds = mCurrentBounds;
@@ -139,7 +140,7 @@ public class BalloonLoadingRenderer extends LoadingRenderer {
         mPaint.setTextSize(mTextSize);
         mPaint.setStrokeWidth(getStrokeWidth() / 5.0f);
         canvas.drawText(mProgressText, arcBounds.centerX() - mProgressBounds.width() / 2.0f,
-                mGasTubeBounds.centerY() + mProgressBounds.height() / 2.0f, mPaint);
+                        mGasTubeBounds.centerY() + mProgressBounds.height() / 2.0f, mPaint);
 
         //draw cannula
         mPaint.setColor(mCannulaColor);
@@ -157,23 +158,29 @@ public class BalloonLoadingRenderer extends LoadingRenderer {
         canvas.restoreToCount(saveCount);
     }
 
-    @Override
-    public void computeRender(float renderProgress) {
+    @Override public void computeRender(float renderProgress) {
         RectF arcBounds = mCurrentBounds;
         //compute gas tube bounds
         mGasTubeBounds.set(arcBounds.centerX() - mGasTubeWidth / 2.0f, arcBounds.centerY(),
-                arcBounds.centerX() + mGasTubeWidth / 2.0f, arcBounds.centerY() + mGasTubeHeight);
+                           arcBounds.centerX() + mGasTubeWidth / 2.0f,
+                           arcBounds.centerY() + mGasTubeHeight);
         //compute pipe body bounds
-        mPipeBodyBounds.set(arcBounds.centerX() + mGasTubeWidth / 2.0f - mPipeBodyWidth / 2.0f, arcBounds.centerY() - mPipeBodyHeight,
-                arcBounds.centerX() + mGasTubeWidth / 2.0f + mPipeBodyWidth / 2.0f, arcBounds.centerY());
+        mPipeBodyBounds.set(arcBounds.centerX() + mGasTubeWidth / 2.0f - mPipeBodyWidth / 2.0f,
+                            arcBounds.centerY() - mPipeBodyHeight,
+                            arcBounds.centerX() + mGasTubeWidth / 2.0f + mPipeBodyWidth / 2.0f,
+                            arcBounds.centerY());
         //compute cannula bounds
-        mCannulaBounds.set(arcBounds.centerX() + mGasTubeWidth / 2.0f - mCannulaWidth / 2.0f, arcBounds.centerY() - mCannulaHeight - mCannulaOffsetY,
-                arcBounds.centerX() + mGasTubeWidth / 2.0f + mCannulaWidth / 2.0f, arcBounds.centerY() - mCannulaOffsetY);
+        mCannulaBounds.set(arcBounds.centerX() + mGasTubeWidth / 2.0f - mCannulaWidth / 2.0f,
+                           arcBounds.centerY() - mCannulaHeight - mCannulaOffsetY,
+                           arcBounds.centerX() + mGasTubeWidth / 2.0f + mCannulaWidth / 2.0f,
+                           arcBounds.centerY() - mCannulaOffsetY);
         //compute balloon bounds
         float insetX = mBalloonWidth * 0.333f * (1 - mProgress);
         float insetY = mBalloonHeight * 0.667f * (1 - mProgress);
-        mBalloonBounds.set(arcBounds.centerX() - mGasTubeWidth / 2.0f - mBalloonWidth / 2.0f + insetX, arcBounds.centerY() - mBalloonHeight + insetY,
-                arcBounds.centerX() - mGasTubeWidth / 2.0f + mBalloonWidth / 2.0f - insetX, arcBounds.centerY());
+        mBalloonBounds.set(arcBounds.centerX() - mGasTubeWidth / 2.0f - mBalloonWidth / 2.0f + insetX,
+                           arcBounds.centerY() - mBalloonHeight + insetY,
+                           arcBounds.centerX() - mGasTubeWidth / 2.0f + mBalloonWidth / 2.0f - insetX,
+                           arcBounds.centerY());
 
         if (renderProgress <= START_INHALE_DURATION_OFFSET) {
             mCannulaBounds.offset(0, -mCannulaMaxOffsetY * renderProgress / START_INHALE_DURATION_OFFSET);
@@ -184,7 +191,9 @@ public class BalloonLoadingRenderer extends LoadingRenderer {
             mPaint.setTextSize(mTextSize);
             mPaint.getTextBounds(mProgressText, 0, mProgressText.length(), mProgressBounds);
         } else {
-            float exhaleProgress = ACCELERATE_INTERPOLATOR.getInterpolation(1.0f - (renderProgress - START_INHALE_DURATION_OFFSET) / (1.0f - START_INHALE_DURATION_OFFSET));
+            float exhaleProgress = ACCELERATE_INTERPOLATOR.getInterpolation(
+                    1.0f - (renderProgress - START_INHALE_DURATION_OFFSET) / (1.0f
+                            - START_INHALE_DURATION_OFFSET));
             mCannulaBounds.offset(0, -mCannulaMaxOffsetY * exhaleProgress);
 
             mProgress = 1.0f - exhaleProgress;
@@ -224,8 +233,9 @@ public class BalloonLoadingRenderer extends LoadingRenderer {
     }
 
     private Path createCannulaBottomPath(RectF cannulaRect) {
-        RectF cannulaHeadRect = new RectF(cannulaRect.left, cannulaRect.bottom - 0.833f * cannulaRect.width(),
-                cannulaRect.right, cannulaRect.bottom);
+        RectF cannulaHeadRect =
+                new RectF(cannulaRect.left, cannulaRect.bottom - 0.833f * cannulaRect.width(),
+                          cannulaRect.right, cannulaRect.bottom);
 
         Path path = new Path();
         path.addRoundRect(cannulaHeadRect, mRectCornerRadius, mRectCornerRadius, Path.Direction.CCW);
@@ -250,14 +260,17 @@ public class BalloonLoadingRenderer extends LoadingRenderer {
         float leftIncrementX3 = progressWidth * 0.9f;
         float leftIncrementY3 = progressHeight * -1.0f;
 
-        path.cubicTo(balloonRect.left + balloonRect.width() * 0.25f + leftIncrementX1, balloonRect.centerY() - balloonRect.height() * 0.4f + leftIncrementY1,
-                balloonRect.left - balloonRect.width() * 0.20f + leftIncrementX2, balloonRect.centerY() + balloonRect.height() * 1.15f + leftIncrementY2,
-                balloonRect.left - balloonRect.width() * 0.4f + leftIncrementX3, balloonRect.bottom + leftIncrementY3);
+        path.cubicTo(balloonRect.left + balloonRect.width() * 0.25f + leftIncrementX1,
+                     balloonRect.centerY() - balloonRect.height() * 0.4f + leftIncrementY1,
+                     balloonRect.left - balloonRect.width() * 0.20f + leftIncrementX2,
+                     balloonRect.centerY() + balloonRect.height() * 1.15f + leftIncrementY2,
+                     balloonRect.left - balloonRect.width() * 0.4f + leftIncrementX3,
+                     balloonRect.bottom + leftIncrementY3);
 
-//        the results of the left final transformation
-//        path.cubicTo(balloonRect.left - balloonRect.width() * 0.13f, balloonRect.centerY() + balloonRect.height() * 0.35f,
-//                balloonRect.left - balloonRect.width() * 0.23f, balloonRect.centerY() - balloonRect.height() * 0.45f,
-//                balloonRect.left + balloonRect.width() * 0.5f, balloonRect.bottom － balloonRect.height());
+        //        the results of the left final transformation
+        //        path.cubicTo(balloonRect.left - balloonRect.width() * 0.13f, balloonRect.centerY() + balloonRect.height() * 0.35f,
+        //                balloonRect.left - balloonRect.width() * 0.23f, balloonRect.centerY() - balloonRect.height() * 0.45f,
+        //                balloonRect.left + balloonRect.width() * 0.5f, balloonRect.bottom － balloonRect.height());
 
         //draw right half
         float rightIncrementX1 = progressWidth * 1.51f;
@@ -267,38 +280,37 @@ public class BalloonLoadingRenderer extends LoadingRenderer {
         float rightIncrementX3 = 0.0f;
         float rightIncrementY3 = 0.0f;
 
-        path.cubicTo(balloonRect.left - balloonRect.width() * 0.38f + rightIncrementX1, balloonRect.centerY() - balloonRect.height() * 0.4f + rightIncrementY1,
-                balloonRect.left + balloonRect.width() * 1.1f + rightIncrementX2, balloonRect.centerY() - balloonRect.height() * 0.15f + rightIncrementY2,
-                balloonRect.left + balloonRect.width() * 0.5f + rightIncrementX3, balloonRect.bottom + rightIncrementY3);
+        path.cubicTo(balloonRect.left - balloonRect.width() * 0.38f + rightIncrementX1,
+                     balloonRect.centerY() - balloonRect.height() * 0.4f + rightIncrementY1,
+                     balloonRect.left + balloonRect.width() * 1.1f + rightIncrementX2,
+                     balloonRect.centerY() - balloonRect.height() * 0.15f + rightIncrementY2,
+                     balloonRect.left + balloonRect.width() * 0.5f + rightIncrementX3,
+                     balloonRect.bottom + rightIncrementY3);
 
-//        the results of the right final transformation
-//        path.cubicTo(balloonRect.left + balloonRect.width() * 1.23f, balloonRect.centerY() - balloonRect.height() * 0.45f,
-//                balloonRect.left + balloonRect.width() * 1.13f, balloonRect.centerY() + balloonRect.height() * 0.35f,
-//                balloonRect.left + balloonRect.width() * 0.5f, balloonRect.bottom);
+        //        the results of the right final transformation
+        //        path.cubicTo(balloonRect.left + balloonRect.width() * 1.23f, balloonRect.centerY() - balloonRect.height() * 0.45f,
+        //                balloonRect.left + balloonRect.width() * 1.13f, balloonRect.centerY() + balloonRect.height() * 0.35f,
+        //                balloonRect.left + balloonRect.width() * 0.5f, balloonRect.bottom);
 
         return path;
     }
 
-    @Override
-    public void setAlpha(int alpha) {
+    @Override public void setAlpha(int alpha) {
         mPaint.setAlpha(alpha);
         invalidateSelf();
     }
 
-    @Override
-    public void setColorFilter(ColorFilter cf) {
+    @Override public void setColorFilter(ColorFilter cf) {
         mPaint.setColorFilter(cf);
         invalidateSelf();
     }
 
-    @Override
-    public void setStrokeWidth(float strokeWidth) {
+    @Override public void setStrokeWidth(float strokeWidth) {
         super.setStrokeWidth(strokeWidth);
         mPaint.setStrokeWidth(strokeWidth);
         invalidateSelf();
     }
 
-    @Override
-    public void reset() {
+    @Override public void reset() {
     }
 }

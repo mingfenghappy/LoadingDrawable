@@ -28,8 +28,7 @@ public class CircleJumpActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circle_jump);
 
@@ -49,8 +48,7 @@ public class CircleJumpActivity extends AppCompatActivity {
         mIvCollision.setImageDrawable(mCollisionDrawable);
     }
 
-    @Override
-    protected void onStart() {
+    @Override protected void onStart() {
         super.onStart();
         mSwapDrawable.start();
         mGuardDrawable.start();
@@ -58,8 +56,7 @@ public class CircleJumpActivity extends AppCompatActivity {
         mCollisionDrawable.start();
     }
 
-    @Override
-    protected void onStop() {
+    @Override protected void onStop() {
         mSwapDrawable.stop();
         mGuardDrawable.stop();
         mDanceDrawable.stop();

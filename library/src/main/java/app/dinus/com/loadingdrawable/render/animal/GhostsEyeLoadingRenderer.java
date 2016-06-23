@@ -70,7 +70,8 @@ public class GhostsEyeLoadingRenderer extends LoadingRenderer {
     }
 
     private void init(Context context) {
-        final DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        final DisplayMetrics metrics = context.getResources()
+                .getDisplayMetrics();
         final float screenDensity = metrics.density;
 
         mWidth = DEFAULT_WIDTH * screenDensity;
@@ -99,8 +100,7 @@ public class GhostsEyeLoadingRenderer extends LoadingRenderer {
         mPaint.setStrokeCap(Paint.Cap.ROUND);
     }
 
-    @Override
-    public void draw(Canvas canvas, Rect bounds) {
+    @Override public void draw(Canvas canvas, Rect bounds) {
         int saveCount = canvas.save();
         RectF arcBounds = mTempBounds;
         arcBounds.set(bounds);
@@ -120,41 +120,57 @@ public class GhostsEyeLoadingRenderer extends LoadingRenderer {
         canvas.restoreToCount(saveCount);
     }
 
-    @Override
-    public void computeRender(float renderProgress) {
-        if (renderProgress <= LEFT_EYE_BALL_END_JUMP_OFFSET && renderProgress >= LEFT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET) {
-            float eyeCircle$BallJumpUpProgress = (renderProgress - LEFT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET) / (LEFT_EYE_BALL_END_JUMP_OFFSET - LEFT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET);
-            mLeftEyeBallOffsetY = -mMaxEyeJumptDistance * EYE_BALL_INTERPOLATOR.getInterpolation(eyeCircle$BallJumpUpProgress);
+    @Override public void computeRender(float renderProgress) {
+        if (renderProgress <= LEFT_EYE_BALL_END_JUMP_OFFSET
+                && renderProgress >= LEFT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET) {
+            float eyeCircle$BallJumpUpProgress =
+                    (renderProgress - LEFT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET) / (
+                            LEFT_EYE_BALL_END_JUMP_OFFSET
+                                    - LEFT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET);
+            mLeftEyeBallOffsetY = -mMaxEyeJumptDistance * EYE_BALL_INTERPOLATOR.getInterpolation(
+                    eyeCircle$BallJumpUpProgress);
         }
 
-        if (renderProgress <= LEFT_EYE_CIRCLE_END_JUMP_OFFSET && renderProgress >= LEFT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET) {
-            float eyeCircle$BallJumpUpProgress = (renderProgress - LEFT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET) / (LEFT_EYE_CIRCLE_END_JUMP_OFFSET - LEFT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET);
-            mLeftEyeCircleOffsetY = -mMaxEyeJumptDistance * EYE_CIRCLE_INTERPOLATOR.getInterpolation(eyeCircle$BallJumpUpProgress);
+        if (renderProgress <= LEFT_EYE_CIRCLE_END_JUMP_OFFSET
+                && renderProgress >= LEFT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET) {
+            float eyeCircle$BallJumpUpProgress =
+                    (renderProgress - LEFT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET) / (
+                            LEFT_EYE_CIRCLE_END_JUMP_OFFSET
+                                    - LEFT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET);
+            mLeftEyeCircleOffsetY = -mMaxEyeJumptDistance * EYE_CIRCLE_INTERPOLATOR.getInterpolation(
+                    eyeCircle$BallJumpUpProgress);
         }
 
-        if (renderProgress <= RIGHT_EYE_BALL_END_JUMP_OFFSET && renderProgress >= RIGHT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET) {
-            float eyeCircle$BallJumpUpProgress = (renderProgress - RIGHT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET) / (RIGHT_EYE_BALL_END_JUMP_OFFSET - RIGHT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET);
-            mRightEyeBallOffsetY = -mMaxEyeJumptDistance * EYE_BALL_INTERPOLATOR.getInterpolation(eyeCircle$BallJumpUpProgress);
+        if (renderProgress <= RIGHT_EYE_BALL_END_JUMP_OFFSET
+                && renderProgress >= RIGHT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET) {
+            float eyeCircle$BallJumpUpProgress =
+                    (renderProgress - RIGHT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET) / (
+                            RIGHT_EYE_BALL_END_JUMP_OFFSET
+                                    - RIGHT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET);
+            mRightEyeBallOffsetY = -mMaxEyeJumptDistance * EYE_BALL_INTERPOLATOR.getInterpolation(
+                    eyeCircle$BallJumpUpProgress);
         }
 
-        if (renderProgress <= RIGHT_EYE_CIRCLE_END_JUMP_OFFSET && renderProgress >= RIGHT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET) {
-            float eyeCircle$BallJumpUpProgress = (renderProgress - RIGHT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET) / (RIGHT_EYE_CIRCLE_END_JUMP_OFFSET - RIGHT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET);
-            mRightEyeCircleOffsetY = -mMaxEyeJumptDistance * EYE_CIRCLE_INTERPOLATOR.getInterpolation(eyeCircle$BallJumpUpProgress);
+        if (renderProgress <= RIGHT_EYE_CIRCLE_END_JUMP_OFFSET
+                && renderProgress >= RIGHT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET) {
+            float eyeCircle$BallJumpUpProgress =
+                    (renderProgress - RIGHT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET) / (
+                            RIGHT_EYE_CIRCLE_END_JUMP_OFFSET
+                                    - RIGHT_EYE_CIRCLE$BALL_START_JUMP_UP_OFFSET);
+            mRightEyeCircleOffsetY = -mMaxEyeJumptDistance * EYE_CIRCLE_INTERPOLATOR.getInterpolation(
+                    eyeCircle$BallJumpUpProgress);
         }
     }
 
-    @Override
-    public void setAlpha(int alpha) {
+    @Override public void setAlpha(int alpha) {
 
     }
 
-    @Override
-    public void setColorFilter(ColorFilter cf) {
+    @Override public void setColorFilter(ColorFilter cf) {
 
     }
 
-    @Override
-    public void reset() {
+    @Override public void reset() {
         mLeftEyeBallOffsetY = 0.0f;
         mRightEyeBallOffsetY = 0.0f;
         mLeftEyeCircleOffsetY = 0.0f;
@@ -166,8 +182,9 @@ public class GhostsEyeLoadingRenderer extends LoadingRenderer {
         float leftEyeCenterX = arcBounds.centerX() - mEyeInterval / 2.0f - mEyeCircleRadius;
         float leftEyeCenterY = arcBounds.centerY() - mEyeBallOffsetY + offsetY;
 
-        RectF rectF = new RectF(leftEyeCenterX - mEyeBallWidth / 2.0f, leftEyeCenterY - mEyeBallHeight / 2.0f,
-                leftEyeCenterX + mEyeBallWidth / 2.0f, leftEyeCenterY + mEyeBallHeight / 2.0f);
+        RectF rectF =
+                new RectF(leftEyeCenterX - mEyeBallWidth / 2.0f, leftEyeCenterY - mEyeBallHeight / 2.0f,
+                          leftEyeCenterX + mEyeBallWidth / 2.0f, leftEyeCenterY + mEyeBallHeight / 2.0f);
 
         return rectF;
     }
@@ -177,8 +194,9 @@ public class GhostsEyeLoadingRenderer extends LoadingRenderer {
         float rightEyeCenterX = arcBounds.centerX() + mEyeInterval / 2.0f + mEyeCircleRadius;
         float rightEyeCenterY = arcBounds.centerY() - mEyeBallOffsetY + offsetY;
 
-        RectF rectF = new RectF(rightEyeCenterX - mEyeBallWidth / 2.0f, rightEyeCenterY - mEyeBallHeight / 2.0f,
-                rightEyeCenterX + mEyeBallWidth / 2.0f, rightEyeCenterY + mEyeBallHeight / 2.0f);
+        RectF rectF =
+                new RectF(rightEyeCenterX - mEyeBallWidth / 2.0f, rightEyeCenterY - mEyeBallHeight / 2.0f,
+                          rightEyeCenterX + mEyeBallWidth / 2.0f, rightEyeCenterY + mEyeBallHeight / 2.0f);
 
         return rectF;
     }
@@ -191,12 +209,15 @@ public class GhostsEyeLoadingRenderer extends LoadingRenderer {
         float leftEyeCenterX = arcBounds.centerX() - mEyeInterval / 2.0f - mEyeCircleRadius;
         float leftEyeCenterY = arcBounds.centerY() + offsetY;
         //the bounds of left eye
-        RectF leftEyeBounds = new RectF(leftEyeCenterX - mEyeCircleRadius, leftEyeCenterY - mEyeCircleRadius,
-                leftEyeCenterX + mEyeCircleRadius, leftEyeCenterY + mEyeCircleRadius);
+        RectF leftEyeBounds =
+                new RectF(leftEyeCenterX - mEyeCircleRadius, leftEyeCenterY - mEyeCircleRadius,
+                          leftEyeCenterX + mEyeCircleRadius, leftEyeCenterY + mEyeCircleRadius);
         path.addArc(leftEyeBounds, 0, DEGREE_180 + 15);
         //the above radian of of the eye
-        path.quadTo(leftEyeBounds.left + mAboveRadianEyeOffsetX, leftEyeBounds.top + mEyeCircleRadius * 0.2f,
-                leftEyeBounds.left + mAboveRadianEyeOffsetX / 4.0f, leftEyeBounds.top - mEyeCircleRadius * 0.15f);
+        path.quadTo(leftEyeBounds.left + mAboveRadianEyeOffsetX,
+                    leftEyeBounds.top + mEyeCircleRadius * 0.2f,
+                    leftEyeBounds.left + mAboveRadianEyeOffsetX / 4.0f,
+                    leftEyeBounds.top - mEyeCircleRadius * 0.15f);
 
         return path;
     }
@@ -208,20 +229,22 @@ public class GhostsEyeLoadingRenderer extends LoadingRenderer {
         float rightEyeCenterX = arcBounds.centerX() + mEyeInterval / 2.0f + mEyeCircleRadius;
         float rightEyeCenterY = arcBounds.centerY() + offsetY;
         //the bounds of left eye
-        RectF leftEyeBounds = new RectF(rightEyeCenterX - mEyeCircleRadius, rightEyeCenterY - mEyeCircleRadius,
-                rightEyeCenterX + mEyeCircleRadius, rightEyeCenterY + mEyeCircleRadius);
+        RectF leftEyeBounds =
+                new RectF(rightEyeCenterX - mEyeCircleRadius, rightEyeCenterY - mEyeCircleRadius,
+                          rightEyeCenterX + mEyeCircleRadius, rightEyeCenterY + mEyeCircleRadius);
         path.addArc(leftEyeBounds, 180, -(DEGREE_180 + 15));
         //the above radian of of the eye
-        path.quadTo(leftEyeBounds.right - mAboveRadianEyeOffsetX, leftEyeBounds.top + mEyeCircleRadius * 0.2f,
-                leftEyeBounds.right - mAboveRadianEyeOffsetX / 4.0f, leftEyeBounds.top - mEyeCircleRadius * 0.15f);
+        path.quadTo(leftEyeBounds.right - mAboveRadianEyeOffsetX,
+                    leftEyeBounds.top + mEyeCircleRadius * 0.2f,
+                    leftEyeBounds.right - mAboveRadianEyeOffsetX / 4.0f,
+                    leftEyeBounds.top - mEyeCircleRadius * 0.15f);
 
         return path;
     }
 
     private class EyeCircleInterpolator implements Interpolator {
 
-        @Override
-        public float getInterpolation(float input) {
+        @Override public float getInterpolation(float input) {
             if (input < 0.25f) {
                 return input * 4.0f;
             } else if (input < 0.5f) {
@@ -237,8 +260,7 @@ public class GhostsEyeLoadingRenderer extends LoadingRenderer {
 
     private class EyeBallInterpolator implements Interpolator {
 
-        @Override
-        public float getInterpolation(float input) {
+        @Override public float getInterpolation(float input) {
             if (input < 0.333333f) {
                 return input * 3.0f;
             } else {

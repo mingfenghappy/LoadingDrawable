@@ -56,7 +56,8 @@ public class CollisionLoadingRenderer extends LoadingRenderer {
         super(context);
         setupPaint();
 
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        DisplayMetrics displayMetrics = context.getResources()
+                .getDisplayMetrics();
         mWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_WIDTH, displayMetrics);
         mHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_HEIGHT, displayMetrics);
     }
@@ -70,21 +71,21 @@ public class CollisionLoadingRenderer extends LoadingRenderer {
         mPaint.setStyle(Paint.Style.FILL);
     }
 
-    @Override
-    public void draw(Canvas canvas, Rect bounds) {
+    @Override public void draw(Canvas canvas, Rect bounds) {
         int saveCount = canvas.save();
 
         RectF arcBounds = mTempBounds;
         arcBounds.set(bounds);
 
-        float cy = mHeight / 2 ;
+        float cy = mHeight / 2;
         float circleRadius = computeCircleRadius(arcBounds);
 
         float sideOffset = 2.0f * (2 * circleRadius);
         float maxMoveOffset = 1.5f * (2 * circleRadius);
 
-        LinearGradient gradient = new LinearGradient(arcBounds.left + sideOffset, 0, arcBounds.right - sideOffset, 0,
-                mColors, mPositions, Shader.TileMode.CLAMP);
+        LinearGradient gradient =
+                new LinearGradient(arcBounds.left + sideOffset, 0, arcBounds.right - sideOffset, 0, mColors,
+                                   mPositions, Shader.TileMode.CLAMP);
         mPaint.setShader(gradient);
 
         for (int i = 0; i < CIRCLE_COUNT; i++) {
@@ -92,7 +93,8 @@ public class CollisionLoadingRenderer extends LoadingRenderer {
                 float xMoveOffset = maxMoveOffset * mStartXOffsetProgress;
                 // y = ax^2 -->  if x = sideOffset, y = sideOffset ==> a = 1 / sideOffset
                 float yMoveOffset = (float) (Math.pow(xMoveOffset, 2) / maxMoveOffset);
-                canvas.drawCircle(circleRadius + sideOffset - xMoveOffset , cy - yMoveOffset, circleRadius, mPaint);
+                canvas.drawCircle(circleRadius + sideOffset - xMoveOffset, cy - yMoveOffset, circleRadius,
+                                  mPaint);
                 continue;
             }
 
@@ -100,11 +102,12 @@ public class CollisionLoadingRenderer extends LoadingRenderer {
                 float xMoveOffset = maxMoveOffset * mEndXOffsetProgress;
                 // y = ax^2 -->  if x = sideOffset, y = sideOffset / 2 ==> a = 1 / sideOffset
                 float yMoveOffset = (float) (Math.pow(xMoveOffset, 2) / maxMoveOffset);
-                canvas.drawCircle(circleRadius * (CIRCLE_COUNT * 2 - 1) + sideOffset + xMoveOffset , cy - yMoveOffset, circleRadius, mPaint);
+                canvas.drawCircle(circleRadius * (CIRCLE_COUNT * 2 - 1) + sideOffset + xMoveOffset,
+                                  cy - yMoveOffset, circleRadius, mPaint);
                 continue;
             }
 
-            canvas.drawCircle(circleRadius * (i * 2 + 1) + sideOffset , cy, circleRadius, mPaint);
+            canvas.drawCircle(circleRadius * (i * 2 + 1) + sideOffset, cy, circleRadius, mPaint);
         }
 
         canvas.restoreToCount(saveCount);
@@ -119,8 +122,7 @@ public class CollisionLoadingRenderer extends LoadingRenderer {
         return radius;
     }
 
-    @Override
-    public void computeRender(float renderProgress) {
+    @Override public void computeRender(float renderProgress) {
 
         // Moving the start offset to left only occurs in the first 25% of a
         // single ring animation
@@ -129,17 +131,19 @@ public class CollisionLoadingRenderer extends LoadingRenderer {
             mStartXOffsetProgress = DECELERATE_INTERPOLATOR.getInterpolation(startLeftOffsetProgress);
 
             invalidateSelf();
-            return ;
+            return;
         }
 
         // Moving the start offset to left only occurs between 25% and 50% of a
         // single ring animation
         if (renderProgress <= START_RIGHT_DURATION_OFFSET) {
-            float startRightOffsetProgress = (renderProgress - START_LEFT_DURATION_OFFSET) / DURATION_OFFSET;
-            mStartXOffsetProgress = ACCELERATE_INTERPOLATOR.getInterpolation(1.0f - startRightOffsetProgress);
+            float startRightOffsetProgress =
+                    (renderProgress - START_LEFT_DURATION_OFFSET) / DURATION_OFFSET;
+            mStartXOffsetProgress =
+                    ACCELERATE_INTERPOLATOR.getInterpolation(1.0f - startRightOffsetProgress);
 
             invalidateSelf();
-            return ;
+            return;
         }
 
         // Moving the end offset to right starts between 50% and 75% a single ring
@@ -149,7 +153,7 @@ public class CollisionLoadingRenderer extends LoadingRenderer {
             mEndXOffsetProgress = DECELERATE_INTERPOLATOR.getInterpolation(endRightOffsetProgress);
 
             invalidateSelf();
-            return ;
+            return;
         }
 
         // Moving the end offset to left starts after 75% of a single ring
@@ -159,24 +163,21 @@ public class CollisionLoadingRenderer extends LoadingRenderer {
             mEndXOffsetProgress = ACCELERATE_INTERPOLATOR.getInterpolation(1 - endRightOffsetProgress);
 
             invalidateSelf();
-            return ;
+            return;
         }
     }
 
-    @Override
-    public void setAlpha(int alpha) {
+    @Override public void setAlpha(int alpha) {
         mPaint.setAlpha(alpha);
         invalidateSelf();
     }
 
-    @Override
-    public void setColorFilter(ColorFilter cf) {
+    @Override public void setColorFilter(ColorFilter cf) {
         mPaint.setColorFilter(cf);
         invalidateSelf();
     }
 
-    @Override
-    public void reset() {
+    @Override public void reset() {
     }
 
     public void setColors(@NonNull int[] colors) {
@@ -187,8 +188,7 @@ public class CollisionLoadingRenderer extends LoadingRenderer {
         mPositions = positions;
     }
 
-    @Override
-    public void setStrokeWidth(float strokeWidth) {
+    @Override public void setStrokeWidth(float strokeWidth) {
         super.setStrokeWidth(strokeWidth);
         mPaint.setStrokeWidth(strokeWidth);
         invalidateSelf();

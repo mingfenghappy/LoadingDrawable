@@ -38,9 +38,8 @@ public class FishLoadingRenderer extends LoadingRenderer {
     private static final float DOTTED_LINE_WIDTH_RATE = 1.0f / DOTTED_LINE_WIDTH_COUNT;
 
     private final float[] FISH_MOVE_POINTS = new float[] {
-            DOTTED_LINE_WIDTH_RATE * 3.0f, DOTTED_LINE_WIDTH_RATE * 6.0f,
-            DOTTED_LINE_WIDTH_RATE * 15f, DOTTED_LINE_WIDTH_RATE * 18f,
-            DOTTED_LINE_WIDTH_RATE * 27.0f, DOTTED_LINE_WIDTH_RATE * 30.0f,
+            DOTTED_LINE_WIDTH_RATE * 3.0f, DOTTED_LINE_WIDTH_RATE * 6.0f, DOTTED_LINE_WIDTH_RATE * 15f,
+            DOTTED_LINE_WIDTH_RATE * 18f, DOTTED_LINE_WIDTH_RATE * 27.0f, DOTTED_LINE_WIDTH_RATE * 30.0f,
             DOTTED_LINE_WIDTH_RATE * 39f, DOTTED_LINE_WIDTH_RATE * 42f,
     };
 
@@ -75,7 +74,8 @@ public class FishLoadingRenderer extends LoadingRenderer {
     }
 
     private void init(Context context) {
-        final DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        final DisplayMetrics metrics = context.getResources()
+                .getDisplayMetrics();
         final float screenDensity = metrics.density;
 
         mWidth = DEFAULT_WIDTH * screenDensity;
@@ -100,11 +100,11 @@ public class FishLoadingRenderer extends LoadingRenderer {
         mPaint.setStrokeWidth(getStrokeWidth());
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.MITER);
-        mPaint.setPathEffect(new DashPathEffect(new float[]{mPathFullLineSize, mPathDottedLineSize}, mPathDottedLineSize));
+        mPaint.setPathEffect(new DashPathEffect(new float[] { mPathFullLineSize, mPathDottedLineSize },
+                                                mPathDottedLineSize));
     }
 
-    @Override
-    public void draw(Canvas canvas, Rect bounds) {
+    @Override public void draw(Canvas canvas, Rect bounds) {
         int saveCount = canvas.save();
         RectF arcBounds = mTempBounds;
         arcBounds.set(bounds);
@@ -113,8 +113,10 @@ public class FishLoadingRenderer extends LoadingRenderer {
 
         //calculate fish clip bounds
         //clip the width of the fish need to increase mPathDottedLineSize * 1.2f
-        RectF fishRectF = new RectF(mFishHeadPos[0] - mFishWidth / 2.0f - mPathDottedLineSize * 1.2f, mFishHeadPos[1] - mFishHeight / 2.0f,
-                mFishHeadPos[0] + mFishWidth / 2.0f + mPathDottedLineSize * 1.2f, mFishHeadPos[1] + mFishHeight / 2.0f);
+        RectF fishRectF = new RectF(mFishHeadPos[0] - mFishWidth / 2.0f - mPathDottedLineSize * 1.2f,
+                                    mFishHeadPos[1] - mFishHeight / 2.0f,
+                                    mFishHeadPos[0] + mFishWidth / 2.0f + mPathDottedLineSize * 1.2f,
+                                    mFishHeadPos[1] + mFishHeight / 2.0f);
         Matrix matrix = new Matrix();
         matrix.postRotate(mFishRotateDegrees, fishRectF.centerX(), fishRectF.centerY());
         matrix.mapRect(fishRectF);
@@ -130,7 +132,8 @@ public class FishLoadingRenderer extends LoadingRenderer {
         int fishSaveCount = canvas.save();
         mPaint.setStyle(Paint.Style.FILL);
         canvas.rotate(mFishRotateDegrees, mFishHeadPos[0], mFishHeadPos[1]);
-        canvas.clipPath(createFishEyePath(mFishHeadPos[0], mFishHeadPos[1] - mFishHeight * 0.06f), Region.Op.DIFFERENCE);
+        canvas.clipPath(createFishEyePath(mFishHeadPos[0], mFishHeadPos[1] - mFishHeight * 0.06f),
+                        Region.Op.DIFFERENCE);
         canvas.drawPath(createFishPath(mFishHeadPos[0], mFishHeadPos[1]), mPaint);
         canvas.restoreToCount(fishSaveCount);
 
@@ -153,8 +156,7 @@ public class FishLoadingRenderer extends LoadingRenderer {
         return 0.0f;
     }
 
-    @Override
-    public void computeRender(float renderProgress) {
+    @Override public void computeRender(float renderProgress) {
         if (mRiverPath == null) {
             return;
         }
@@ -169,18 +171,15 @@ public class FishLoadingRenderer extends LoadingRenderer {
         mFishRotateDegrees = calculateRotateDegrees(fishProgress);
     }
 
-    @Override
-    public void setAlpha(int alpha) {
+    @Override public void setAlpha(int alpha) {
 
     }
 
-    @Override
-    public void setColorFilter(ColorFilter cf) {
+    @Override public void setColorFilter(ColorFilter cf) {
 
     }
 
-    @Override
-    public void reset() {
+    @Override public void reset() {
     }
 
     private Path createFishEyePath(float fishEyeCenterX, float fishEyeCenterY) {
@@ -199,7 +198,8 @@ public class FishLoadingRenderer extends LoadingRenderer {
         //the head of the fish
         path.moveTo(fishHeadX, fishHeadY);
         //the left body of the fish
-        path.quadTo(fishHeadX - mFishWidth * 0.333f, fishHeadY + mFishHeight * 0.222f, fishHeadX - mFishWidth * 0.333f, fishHeadY + mFishHeight * 0.444f);
+        path.quadTo(fishHeadX - mFishWidth * 0.333f, fishHeadY + mFishHeight * 0.222f,
+                    fishHeadX - mFishWidth * 0.333f, fishHeadY + mFishHeight * 0.444f);
         path.lineTo(fishHeadX - mFishWidth * 0.333f, fishHeadY + mFishHeight * 0.666f);
         path.lineTo(fishHeadX - mFishWidth * 0.5f, fishHeadY + mFishHeight * 0.8f);
         path.lineTo(fishHeadX - mFishWidth * 0.5f, fishHeadY + mFishHeight);
@@ -212,7 +212,8 @@ public class FishLoadingRenderer extends LoadingRenderer {
         path.lineTo(fishHeadX + mFishWidth * 0.5f, fishHeadY + mFishHeight * 0.8f);
         path.lineTo(fishHeadX + mFishWidth * 0.333f, fishHeadY + mFishHeight * 0.666f);
         path.lineTo(fishHeadX + mFishWidth * 0.333f, fishHeadY + mFishHeight * 0.444f);
-        path.quadTo(fishHeadX + mFishWidth * 0.333f, fishHeadY + mFishHeight * 0.222f, fishHeadX, fishHeadY);
+        path.quadTo(fishHeadX + mFishWidth * 0.333f, fishHeadY + mFishHeight * 0.222f, fishHeadX,
+                    fishHeadY);
 
         path.close();
 
@@ -226,8 +227,10 @@ public class FishLoadingRenderer extends LoadingRenderer {
 
         mRiverPath = new Path();
 
-        RectF rectF = new RectF(arcBounds.centerX() - mRiverWidth / 2.0f, arcBounds.centerY() - mRiverHeight / 2.0f,
-                arcBounds.centerX() + mRiverWidth / 2.0f, arcBounds.centerY() + mRiverHeight / 2.0f);
+        RectF rectF = new RectF(arcBounds.centerX() - mRiverWidth / 2.0f,
+                                arcBounds.centerY() - mRiverHeight / 2.0f,
+                                arcBounds.centerX() + mRiverWidth / 2.0f,
+                                arcBounds.centerY() + mRiverHeight / 2.0f);
 
         rectF.inset(mStrokeWidth / 2.0f, mStrokeWidth / 2.0f);
 
@@ -237,8 +240,7 @@ public class FishLoadingRenderer extends LoadingRenderer {
     }
 
     private class FishInterpolator implements Interpolator {
-        @Override
-        public float getInterpolation(float input) {
+        @Override public float getInterpolation(float input) {
             int index = ((int) (input / FISH_MOVE_POINTS_RATE));
             if (index >= FISH_MOVE_POINTS.length) {
                 index = FISH_MOVE_POINTS.length - 1;

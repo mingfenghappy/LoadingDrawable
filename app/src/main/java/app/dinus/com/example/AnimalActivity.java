@@ -22,8 +22,7 @@ public class AnimalActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animal);
 
@@ -37,15 +36,13 @@ public class AnimalActivity extends AppCompatActivity {
         mIvGhostsEye.setImageDrawable(mGhostsEyeDrawable);
     }
 
-    @Override
-    protected void onStart() {
+    @Override protected void onStart() {
         super.onStart();
         mFishDrawable.start();
         mGhostsEyeDrawable.start();
     }
 
-    @Override
-    protected void onStop() {
+    @Override protected void onStop() {
         mFishDrawable.stop();
         mGhostsEyeDrawable.stop();
         super.onStop();

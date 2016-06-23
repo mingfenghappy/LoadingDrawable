@@ -22,8 +22,7 @@ public class SceneryActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scenery);
 
@@ -37,15 +36,13 @@ public class SceneryActivity extends AppCompatActivity {
         mIvElectricFan.setImageDrawable(mElectricFanDrawable);
     }
 
-    @Override
-    protected void onStart() {
+    @Override protected void onStart() {
         super.onStart();
         mDayNightDrawable.start();
         mElectricFanDrawable.start();
     }
 
-    @Override
-    protected void onStop() {
+    @Override protected void onStop() {
         mDayNightDrawable.stop();
         mElectricFanDrawable.stop();
         super.onStop();
